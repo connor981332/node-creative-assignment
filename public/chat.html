@@ -1,0 +1,29 @@
+<html>
+
+<head>
+  <title>City Finder</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+</head>
+
+<body>
+  <form>
+    Enter A Message: <input type="text" id="chatfield" value=""><br>
+  </form>
+  <script>
+    $("#chatfield").keyup(function() {
+      var url = "getcity?q=" + $("#chatfield").val();
+      $.getJSON(url, function(data) {
+        var everything;
+        everything = "<ul>";
+        $.each(data, function(i, item) {
+          everything += "<li> " + data[i].city;
+        });
+        everything += "</ul>";
+        $("#txtHint").html(everything);
+      });
+    });
+  </script>
+</body>
+
+</html>
