@@ -11,8 +11,18 @@
     Enter A Message: <input type="text" id="chatfield" value=""><br>
   </form>
   <script>
-   /* $("#chatfield").keyup(function() {
-      var url = "getcity?q=" + $("#chatfield").val();
+  var io = require('socket.io');
+  var socket = io.connect('http://localhost');
+  $("#chatfield").keyup(function() {
+     
+
+});
+socket.on('update-msg', function (msg) {
+    console.log(msg);
+//    $('#mydiv').html(msg.data)
+});
+/*    $("#chatfield").keyup(function() {
+/*      var url = "getcity?q=" + $("#chatfield").val();
       $.getJSON(url, function(data) {
         var everything;
         everything = "<ul>";
