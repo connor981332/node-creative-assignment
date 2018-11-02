@@ -10,29 +10,47 @@
   <form>
     Enter A Message: <input type="text" id="chatfield" value=""><br>
   </form>
+  <button id='submit'>Submit</button>
+  <button id='refresh'>Refresh</button>
+  <br>
+  <span id="chat">Empty</span>
   <script>
-  var io = require('socket.io');
-  var socket = io.connect('http://localhost');
-  $("#chatfield").keyup(function() {
-     
-
-});
-socket.on('update-msg', function (msg) {
-    console.log(msg);
-//    $('#mydiv').html(msg.data)
-});
-/*    $("#chatfield").keyup(function() {
-/*      var url = "getcity?q=" + $("#chatfield").val();
-      $.getJSON(url, function(data) {
-        var everything;
-        everything = "<ul>";
-        $.each(data, function(i, item) {
-          everything += "<li> " + data[i].city;
-        });
-        everything += "</ul>";
-        $("#txtHint").html(everything);
+    function renderMessages(data) {
+      var everything;
+      everything = "<ul>";
+      $.each(data, function(i,item) {
+        everything += "<li> "+data[i];
       });
-    });*/
+      $("#chat").html(everything);
+    everything += "</ul>";
+    $("#txtHint").html(everything);
+    }
+    $( "#submit" ).click(function() {
+      var url = "getChat?q="+$("#chatfield").val();
+      console.log(url);
+      $.get( url, function( data ) {
+        console.log(data);
+        renderMessages(data);
+      });
+    });
+    (function($) {
+      $(document).ready(function() {
+        var url = "getChat";
+        console.log(url);
+        $.get( url, function( data ) {
+          console.log(data);
+          renderMessages(data);
+        });
+      });
+    })(jQuery);
+    $( "#refresh" ).click(function() {
+      var url = "getChat";
+      console.log(url);
+      $.get( url, function( data ) {
+        console.log(data);
+        renderMessages(data);
+      });
+    });
   </script>
 </body>
 
