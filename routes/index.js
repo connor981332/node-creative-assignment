@@ -22,4 +22,13 @@ router.get('/getChat',function(req,res,next) {
     res.status(200).json(chat);
 });
 
+router.get('/destroyChat',function(req,res,next) {
+    console.log("In destroychat route");
+    chat = new Array();
+    console.log("chat destroyed");
+    var name = req.query.q
+    chat.push(name + " destroyed the chat.");
+    res.status(200).json(chat);
+});
+
 module.exports = router;

@@ -1,0 +1,26 @@
+#interface {
+    text-align: center;
+}
+
+.TopHeader {
+  border-style: solid;
+  border-radius: 5px;
+  color: white;
+  width: 400px;
+  margin: auto;
+}
+
+.TopDiv {
+  background-color: blue;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#chat {
+    text-align: center;
+}
+
+ul {
+  list-style-type: none;
+}

@@ -1,20 +1,42 @@
 <html>
 
 <head>
-  <title>City Finder</title>
+  <title>uMessage</title>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="chat.css">
 
 </head>
 
 <body>
-  <form>
-    Enter A Message: <input type="text" id="chatfield" value=""><br>
-  </form>
-  <button id='submit'>Submit</button>
-  <button id='refresh'>Refresh</button>
+  <div class='TopDiv container-fluid'>
+    <h1 class='TopHeader'>uMessage</h1>
+  </div>
+  <br>
+  <br>
+  <div id='interface'>
+    <form>
+      Name: <input type="text" id="namefield" value="">
+      <br>
+      Message: <input type="text" id="chatfield" value="">
+      <br>
+    </form>
+    <button id='submit'>Submit</button>
+    <button id='refresh'>Refresh</button>
+    <button id='destroy'>Destroy Chat</button>
+  </div>
   <br>
   <span id="chat">Empty</span>
   <script>
+    setInterval(function(){
+      console.log("Automatic get");
+      var url = "getChat";
+        console.log(url);
+        $.get( url, function( data ) {
+          console.log(data);
+          renderMessages(data);
+      }); 
+    }, 3000);
     function renderMessages(data) {
       var everything;
       everything = "<ul>";
@@ -26,9 +48,26 @@
     $("#txtHint").html(everything);
     }
     $( "#submit" ).click(function() {
-      var url = "getChat?q="+$("#chatfield").val();
+      var name = $("#namefield").val()
+      if (name == '') {
+        name = "No name"
+      }
+      var url = "getChat?q="+ name + ": " + $("#chatfield").val();
       console.log(url);
       $.get( url, function( data ) {
+        console.log(data);
+        renderMessages(data);
+      });
+    });
+    $( "#destroy" ).click(function() {
+      var name = $("#namefield").val()
+      if (name == '') {
+        name = "No name"
+      }
+      console.log(name);
+      var url = "destroyChat?q=" + name;
+      console.log(url);
+      $.get( url , function( data ) {
         console.log(data);
         renderMessages(data);
       });
